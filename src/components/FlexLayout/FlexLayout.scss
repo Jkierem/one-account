@@ -1,0 +1,15 @@
+.layout {
+  display: flex;
+  flex-direction: var(--flex-direction);
+  align-items: var(--flex-align);
+  justify-content: var(--flex-justify);
+  background-color: var(--background-color);
+
+  height: auto;
+  width: auto;
+
+  &__fullscreen {
+    height: 100vh;
+    width: 100vw;
+  }
+}
