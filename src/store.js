@@ -18,13 +18,13 @@ export const initialState = {
 const initStore = () => {
   const composeEnhancers = getDevtoolsCompose(process.env.NODE_ENV === "development")
 
-  const enhancers: any[] = [
+  const enhancers = [
     // epicMiddleware,
   ]
 
   const store = createStore(
     rootReducer,
-    initialState as any,
+    initialState,
     composeEnhancers(applyMiddleware(...enhancers))
   )
 

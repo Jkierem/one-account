@@ -6,11 +6,6 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^14.14.10",
-    "@types/ramda": "^0.27.32",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
     "firebase": "^8.1.1",
     "getclassname": "^1.0.9",
     "jazzi": "^1.2.4",
@@ -25,16 +20,15 @@
     "redux": "^4.0.5",
     "redux-observable": "^1.2.0",
     "redux-utility": "^2.2.4",
-    "rxjs": "^6.6.3",
-    "typescript": "^4.1.2"
+    "rxjs": "^6.6.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prettier": "prettier --write ./**/src/*.{ts,tsx}",
-    "prettier:check": "prettier --check ./**/src/*.{ts,tsx}"
+    "prettier": "prettier --write ./**/src/*.{js,jsx}",
+    "prettier:check": "prettier --check ./**/src/*.{js,jsx}"
   },
   "eslintConfig": {
     "extends": [
@@ -55,7 +49,6 @@
     ]
   },
   "devDependencies": {
-    "@types/react-redux": "^7.1.11",
     "husky": "^4.3.0",
     "prettier": "^2.2.0"
   },

@@ -2,7 +2,7 @@ import firebase from "firebase/app"
 import "firebase/database"
 import "firebase/auth"
 
-const getEnv = (str: string) => process.env[`REACT_APP_${str}`]
+const getEnv = (str) => process.env[`REACT_APP_${str}`]
 
 const firebaseConfig = {
   apiKey: getEnv("API_KEY"),

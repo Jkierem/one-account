@@ -1,4 +1,4 @@
-const UserProfile: React.FC<{}> = () => {
+const UserProfile = () => {
     return <></>
 }
 

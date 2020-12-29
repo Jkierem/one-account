@@ -19,9 +19,9 @@ const {
 const logout = nullaryActionCreator(LOGOUT)
 
 export default createReducer({
-  [LOGIN_FETCH]: state.extend.fetch((state: any) => ({ ...state, auth: false })),
-  [LOGIN_ERROR]: state.extend.error((state: any) => ({ ...state, auth: false })),
-  [LOGIN_SUCCESS]: state.extend.success((state: any) => ({ ...state, auth: true })),
+  [LOGIN_FETCH]: state.extend.fetch((state) => ({ ...state, auth: false })),
+  [LOGIN_ERROR]: state.extend.error((state) => ({ ...state, auth: false })),
+  [LOGIN_SUCCESS]: state.extend.success((state) => ({ ...state, auth: true })),
   [LOGOUT]: () => ({ ...state.intialState, auth: false }),
 })
 

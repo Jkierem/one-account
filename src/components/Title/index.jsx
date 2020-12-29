@@ -1,12 +1,8 @@
 import React from 'react'
 import { Size } from "../../core/types"
 
-interface TitleProps {
-    size: Size;
-}
-
-const Title: React.FC<TitleProps> = ({ size, children }) => {
-    const Comp: any = {
+const Title = ({ size, children }) => {
+    const Comp = {
         small: "h3",
         medium: "h2",
         big: "h1"

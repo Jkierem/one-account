@@ -1,4 +1,4 @@
-const TabList: React.FC<{}> = () => {
+const TabList = () => {
     return <></>
 }
 

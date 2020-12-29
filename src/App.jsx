@@ -5,12 +5,14 @@ import Home from "./views/Home"
 import Login from "./views/Login"
 
 function App() {
-  return <FlexLayout fullscreen backgroundColor="white">
-    <ViewManager>
-      <View path={"Login"} component={Login} />
-      <View path={"Home"} component={Home}/>
-    </ViewManager>
-  </FlexLayout>
+  return (
+    <FlexLayout fullscreen backgroundColor="white">
+      <ViewManager>
+        <View path={"Login"} component={Login} />
+        <View path={"Home"} component={Home} />
+      </ViewManager>
+    </FlexLayout>
+  )
 }
 
 export default App

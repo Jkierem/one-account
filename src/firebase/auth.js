@@ -1,18 +1,12 @@
 import { Either } from "jazzi"
 import { profile } from "../core/models"
-import { checkUserRegistry, registerUser, Snapshot } from "./database"
+import { checkUserRegistry, registerUser } from "./database"
 import { auth } from "./firebase"
 
-export type LoginResponse = {
-  token: string;
-  uid: any;
-  profile: any;
-}
-
-const withGoogle = (): Promise<LoginResponse> =>
+const withGoogle = () =>
     auth.instance
       .signInWithPopup(auth.provider)
-      .then((result: any) => ({
+      .then((result) => ({
             token: result.credential.accessToken,
             uid: result.user.uid,
             profile: result?.additionalUserInfo?.profile,
@@ -20,13 +14,13 @@ const withGoogle = (): Promise<LoginResponse> =>
       )
 
 const loginOrRegister = () => {
-  let data: LoginResponse;
-  return withGoogle().then((d: LoginResponse) => {
+  let data;
+  return withGoogle().then((d) => {
     data = d;
     const uid = d.uid
     return checkUserRegistry(uid)
   })
-  .then((snap: Snapshot) => {
+  .then((snap) => {
     return Either
     .fromPredicate(snap => snap.exists(), snap)
     .map(snap => snap.val())

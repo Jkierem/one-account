@@ -3,15 +3,17 @@ import getClassName from "getclassname"
 import { toCSSVars } from "../../core/utils"
 import "./FlexLayout.scss"
 
-interface FlexProps {
-  direction?: "column" | "row";
-  align?: "stretch" | "center" | "flex-start" | "flex-end" | "baseline" | "initial" | "inherit";
-  justify?:  "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "initial" | "inherit";
-  fullscreen?: boolean;
-  backgroundColor?: string;
- }
-
-const FlexLayout: React.FC<FlexProps> = ({
+/**
+ * @typedef {{
+ *  direction?: "column" | "row";
+ *  align?: "stretch" | "center" | "flex-start" | "flex-end" | "baseline" | "initial" | "inherit";
+ *  justify?:  "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "initial" | "inherit";
+ *  fullscreen?: boolean;
+ *  backgroundColor?: string;
+ * }} FlexProps
+ * @param {FlexProps} props 
+ */
+const FlexLayout = ({
   direction = "column",
   align = "center",
   justify = "center",
