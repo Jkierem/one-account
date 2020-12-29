@@ -1,18 +1,20 @@
 import React from 'react'
-import { Button, FlexLayout } from "../../components"
+import { Button } from "../../components"
+import { useViewManager } from '../../components/ViewManager'
 import auth from '../../firebase/auth'
 
 const Login = () => {
-
+  const manager = useViewManager()
   const handleLogin = () => {
-    auth.loginOrRegister().then(console.log).catch(console.error)
+    auth.loginOrRegister()
+    .then(profile => {
+      manager.changeView("Home");
+      manager.setUser(profile)
+    })
+    .catch(console.error)
   }
 
-  return (
-    <FlexLayout fullscreen backgroundColor="white">
-      <Button onClick={handleLogin}>Login</Button>
-    </FlexLayout>
-  )
+  return <Button onClick={handleLogin}>Login with Google</Button>
 }
 
 export default Login

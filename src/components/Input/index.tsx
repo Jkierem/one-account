@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import type { InputEvent } from '../../core/types'
 
 interface InputProps {
-  defaultValue: string;
+  defaultValue?: string;
   onChange: (value: string) => void;
   [x: string]: any;
 }

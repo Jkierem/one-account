@@ -1,6 +1,6 @@
 import { Either } from "jazzi"
-import { checkUserRegistry, registerUser } from "./database"
-import type firebase from 'firebase'
+import { profile } from "../core/models"
+import { checkUserRegistry, registerUser, Snapshot } from "./database"
 import { auth } from "./firebase"
 
 export type LoginResponse = {
@@ -26,20 +26,15 @@ const loginOrRegister = () => {
     const uid = d.uid
     return checkUserRegistry(uid)
   })
-  .then((snap: firebase.database.DataSnapshot) => {
+  .then((snap: Snapshot) => {
     return Either
     .fromPredicate(snap => snap.exists(), snap)
     .map(snap => snap.val())
-    .onLeft(() => registerUser(data.uid,{
+    .onLeft(() => registerUser(data.uid,profile({
       userId: data.uid,
-      firstName: data.profile.given_name,
-      lastName: data.profile.family_name,
-      fullName: data.profile.name,
-      picture: data.profile.picture
-    }))
-  })
-  .catch(err => {
-    console.error(err)
+      fullName: data.profile?.name,
+      picture: data.profile?.picture || "",
+    })))
   })
 }
 

@@ -1,33 +1,37 @@
 export interface Tab {
   owner: string;
   participants: string[];
-  amount: number;
+  balances: Record<string,Record<string,number>>;
 }
 
-export const tab = (userId: string, amount = 0) => ({
+export const tab = (userId: string) => ({
   owner: userId,
   participants: [userId],
-  amount,
+  balances: {
+    [userId]: {
+      [userId]: 0
+    }
+  },
 })
 
 export interface UserProfile {
   userId: string;
   fullName: string;
-  firstName: string;
-  lastName: string;
   picture: string;
+  subscriptions: string[];
 }
 
-export const profile = (
-  userId: string,
-  fullName = "",
-  firstName = "",
-  lastName = "",
-  picture = ""
-) => ({
+type UserData = {
+  userId: string;
+  fullName?: string;
+  picture?: string;
+}
+
+export const profile = ({
+  userId, fullName = "", picture = ""
+}: UserData): UserProfile => ({
   userId,
   fullName,
-  firstName,
-  lastName,
   picture,
+  subscriptions: []
 })
