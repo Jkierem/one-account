@@ -19,9 +19,9 @@ firebase.initializeApp(firebaseConfig)
 export const database = firebase.database()
 
 const provider = new firebase.auth.GoogleAuthProvider()
-provider.setCustomParameters({
-  prompt: "select_account consent",
-})
+// provider.setCustomParameters({
+//   prompt: "select_account consent",
+// })
 
 export const auth = {
   instance: firebase.auth(),

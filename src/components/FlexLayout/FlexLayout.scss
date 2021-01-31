@@ -5,8 +5,8 @@
   justify-content: var(--flex-justify);
   background-color: var(--background-color);
 
-  height: auto;
-  width: auto;
+  height: var(--height,auto);
+  width: var(--width,auto);
 
   &__fullscreen {
     height: 100vh;

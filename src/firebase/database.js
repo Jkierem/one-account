@@ -1,5 +1,5 @@
 import { Either, Maybe } from "jazzi"
-import { compose } from "ramda"
+import { assoc, compose } from "ramda"
 import { tab } from "../core/models"
 import { database } from "./firebase"
 import { randomPositiveByDigits } from "../core/utils"
@@ -10,6 +10,7 @@ const _db = (path, callback = a => a, mapRef = a => a) => {
     mapRef: (fn) => _db(path, callback, compose(mapRef, fn)),
     mapPath: (fn) => _db(fn(path),callback,mapRef),
     step: (to) => _db(`${path}/${to}`,callback,mapRef),
+    getRef: () => database.ref(path),
     listen: () => {
       const ref = mapRef(database.ref(path))
       ref.on("value", callback)
@@ -84,16 +85,54 @@ const uniqId = (idPool) => {
 export const getTabs = () => tabs.map(x => x.val()).read()
 export const getTab = (tabId) => tabs.step(`${tabId}`).map(x => x.val()).read();
 
-export const attemptCreateTab = async (userId) => {
+export const attemptCreateTab = async (user,name) => {
   const tabData = await getTabs()
-  const id = await uniqId(Object.keys(tabData));
-  const newTab = tab(userId);
+  const id = await uniqId(Object.keys(tabData ?? []));
+  const newTab = tab(id,user,name);
   return tabs.step(`${id}`).set(newTab).then(() => newTab)
 }
 
 export const subscribeToTab = (userId, tabId) => {
-  
+  return database.ref(`/users/${userId}`).transaction((user) => {
+    return Maybe.fromNullish(user)
+      .map(u => {
+        u.subscriptions = [...(u.subscriptions || []), tabId]
+        return u;
+      })
+      .onNone(() => user)
+  })
 }
+
+export const inviteToTab = (userId, tabId) => {
+  return database.ref(`/tabs/${tabId}`).transaction((tab) => {
+    if( tab?.members?.some?.(x => x === userId) ){
+      return tab
+    }
+    return Maybe.fromNullish(tab)
+      .map(t => {
+        t.members = [...(t.members || []), userId];
+        t.balances[userId] = t.members.reduce((acc,user) => {
+          return assoc(user,0,acc);
+        },{})
+        return t;
+      })
+      .onNone(() => tab)
+  })
+}
+
+export const usernameTaken = (username) => {
+  return database.ref(`/users`)
+    .orderByChild("username")
+    .equalTo(username)
+    .once("value")
+    .then(snap => snap.val());
+}
+
+export const saveUsername = (userId,username) => {
+  return database.ref(`/users/${userId}/username`).set(username);
+}
+
+export const getUserInfo = (userId) => database.ref(`/users/${userId}`).once("value").then(snap => snap.val());
 
 const db = (path) => _db(path)
 

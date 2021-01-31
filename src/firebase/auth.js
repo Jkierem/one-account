@@ -1,7 +1,24 @@
-import { Either } from "jazzi"
+import { Either, Union, Effect, Functor } from "jazzi"
 import { profile } from "../core/models"
 import { checkUserRegistry, registerUser } from "./database"
 import { auth } from "./firebase"
+
+const LoginResult = Union({
+  name: "LoginResult",
+  cases: {
+    NewUser: x => x,
+    OldUser: x => x,
+  },
+  constructors: {
+    fromProfile(p){
+      return p.username ? this.OldUser(p) : this.NewUser(p);
+    }
+  },
+  extensions: [
+    Functor({ trivials: ["NewUser", "OldUser"], identities: [] }),
+    Effect({ trivials: ["NewUser", "OldUser"], identities: [] }),
+  ]
+})
 
 const withGoogle = () =>
     auth.instance
@@ -25,11 +42,11 @@ const loginOrRegister = () => {
     .fromPredicate(snap => snap.exists(), snap)
     .map(snap => snap.val())
     .onLeft(() => registerUser(data.uid,profile({
-      userId: data.uid,
+      id: data.uid,
       fullName: data.profile?.name,
       picture: data.profile?.picture || "",
     })))
-  })
+  }).then(LoginResult.fromProfile)
 }
 
 const logout = () => auth.instance.signOut()

@@ -1,0 +1,21 @@
+$spacing-small: 6px;
+$spacing-medium: 12px;
+$spacing-large: 24px;
+$spacing-huge: 40px;
+
+:root {
+    --spacing-small: #{$spacing-small};
+    --spacing-medium: #{$spacing-medium};
+    --spacing-large: #{$spacing-large};
+    --spacing-huge: #{$spacing-huge};
+
+    --padding-small: #{$spacing-small};
+    --padding-medium: #{$spacing-medium};
+    --padding-large: #{$spacing-large};
+    --padding-huge: #{$spacing-huge};
+
+    --margin-small: #{$spacing-small};
+    --margin-medium: #{$spacing-medium};
+    --margin-large: #{$spacing-large};
+    --margin-huge: #{$spacing-huge};
+}

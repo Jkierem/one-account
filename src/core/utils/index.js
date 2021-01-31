@@ -8,7 +8,8 @@ import {
   split,
   join,
   concat,
-  map
+  map,
+  filter
 } from "ramda"
 
 
@@ -26,6 +27,12 @@ export const toCSSCase = compose(
   split(","),
   replace(/[A-Z]/g, (x) => `,${x}`)
 )
+
+export const purge = (obj) => compose(
+  fromPairs,
+  filter(([,val]) => val),
+  toPairs,
+)(obj)
 
 export const toCSSVars = (obj) => mapKeys(toCSSCase, obj)
 

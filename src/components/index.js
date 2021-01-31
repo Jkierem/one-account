@@ -1,3 +1,7 @@
 export { default as Button } from "./Button"
-export { default as Input } from "./Input"
 export { default as FlexLayout } from "./FlexLayout"
+export { default as Input } from "./Input"
+export { default as Title } from "./Title"
+export { default as TabList } from "./TabList"
+export { default as UserMenu } from "./UserMenu"
+export { default as UserProfile } from "./UserProfile"

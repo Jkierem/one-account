@@ -1,7 +1,8 @@
-export const tab = ({ userId, fullName },name) => ({
+export const tab = (tabId,{ id: userId, fullName },name) => ({
+  id: tabId,
   owner: userId,
-  participants: [userId],
-  name: name ?? `${fullName}'s tab`, 
+  members: [userId],
+  name: name?.length > 0 ? name : `${fullName}'s tab`, 
   balances: {
     [userId]: {
       [userId]: 0
@@ -9,10 +10,12 @@ export const tab = ({ userId, fullName },name) => ({
   },
 })
 
+export const createTab = tab
+
 export const profile = ({
-  userId, fullName = "", picture = ""
+  id, fullName = "", picture = ""
 }) => ({
-  userId,
+  id,
   fullName,
   picture,
   subscriptions: []

@@ -1,8 +1,8 @@
-// import { createEpicMiddleware } from 'redux-observable'
+import { createEpicMiddleware } from 'redux-observable'
 import { createStore, applyMiddleware } from "redux"
 import { getDevtoolsCompose } from "redux-utility"
 
-// import { rootEpic } from './epic'
+import rootEpic from './epic'
 import rootReducer from "./reducer"
 
 export const initialState = {
@@ -11,15 +11,22 @@ export const initialState = {
     loading: false,
     data: {},
   },
+  tabs: {
+    data: [],
+    loading: false,
+    error: undefined
+  },
+  selectedTab: undefined,
+  view: "Login",
 }
 
-// const epicMiddleware = createEpicMiddleware()
+const epicMiddleware = createEpicMiddleware()
 
 const initStore = () => {
   const composeEnhancers = getDevtoolsCompose(process.env.NODE_ENV === "development")
 
   const enhancers = [
-    // epicMiddleware,
+    epicMiddleware,
   ]
 
   const store = createStore(
@@ -28,7 +35,7 @@ const initStore = () => {
     composeEnhancers(applyMiddleware(...enhancers))
   )
 
-  // epicMiddleware.run(rootEpic);
+  epicMiddleware.run(rootEpic);
 
   return store
 }
